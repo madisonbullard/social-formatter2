@@ -1,0 +1,966 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"TWI",
+				"TWITTER_CONSUMER_KEY\t?string"
+			],
+			[
+				"sf",
+				"sftcs\tsocial-formatter3 Component Test (shallow render)"
+			],
+			[
+				"true",
+				"true"
+			],
+			[
+				"render",
+				"renderToString"
+			],
+			[
+				"rf",
+				"rf\tReact Functional Component"
+			],
+			[
+				"30",
+				"30px"
+			],
+			[
+				"stories",
+				"storiesStyles"
+			],
+			[
+				"story",
+				"storyStyles\t"
+			],
+			[
+				"break",
+				"breakpoints〔variable〕"
+			],
+			[
+				"menu",
+				"menuStyles"
+			],
+			[
+				"LandingB",
+				"LandingBody"
+			],
+			[
+				"chub",
+				"chubbStyles"
+			],
+			[
+				"Land",
+				"LandingPartners"
+			],
+			[
+				"exampl",
+				"exampleImgStyles"
+			],
+			[
+				"Landing",
+				"LandingPartners"
+			],
+			[
+				"im",
+				"im\timport statement"
+			],
+			[
+				"Styled",
+				"StyledDownloadButton\t"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/shared/services/routes.js",
+			"settings":
+			{
+				"buffer_size": 714,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "import React, { Component } from 'react'\nimport { Route, Link, Redirect, Switch } from 'react-router-dom'\nimport { ThemeProvider } from 'emotion-theming';\nimport styled, { injectGlobal } from 'react-emotion';\n\nimport routes from '../services/routes'\n\nimport DesignView from './design_view';\n// import Navbar from './Navbar'\nimport Header from './header';\nimport NoMatch from './NoMatch'\n\nconst StyledAppContainerDiv = styled('div')`\n  display: grid;\n  height: 100%;\n  width: 100%;\n  grid-template-areas: \"header header\"\n                       \"format render\";\n  grid-template-rows: 130px 1fr;\n  grid-template-columns: 250px minmax(calc(${p => p.theme.post.width + p.theme.post.paddingX * 2}px + 1.5rem), 7fr);\n  background-color: ${p => p.theme.white};\n`;\n\nconst appTheme = { // Global theme declared for use with ThemeProvider\n  white: '#EDF4FC',\n  purple: '#5658F9',\n  gold: '#ffd43b',\n  grey: '#657786',\n  black: '#14171a',\n};\n\nclass App extends Component {\n\n  getTweet = () => {\n    let tweet\n    if (__isBrowser__) {\n      tweet = window.__INITIAL_DATA__\n      delete window.__INITIAL_DATA__\n    } else {\n      tweet = this.props.staticContext.data\n    }\n    return tweet\n  }\n\n  applyPostThemeState = () => ({\n    borderRadius: 8,\n    backgroundColor: { hex: '#ffffff' },\n    fullBleedMedia: 0,\n    paddingX: 40,\n    paddingY: 30,\n    userNameFontSize: 18,\n    screenNameFontSize: 14,\n    width: 660,\n  })\n\n  state = {\n    postTheme: {\n      post: this.applyPostThemeState(),\n    },\n    tweet: __isBrowser__ ? window.__INITIAL_DATA__ : this.props.staticContext.data,\n    loading: this.getTweet() ? false : true,\n  }\n\n  handleValueChange = (param, value) => {\n    this.setState({\n      postTheme: {\n        post: {\n          ...this.state.postTheme.post,\n          [param]: value,\n        },\n      },\n    });\n    console.log(`${param}:`, value);\n  }\n\n  render() {\n    return (\n      <ThemeProvider theme={appTheme}>\n        <Header tweetURL={this.getTweet} tweet={this.state.tweet} postTheme={this.state.postTheme} />\n        <Switch>\n          {routes.map(({ path, exact, component: Component, ...rest }) => (\n            <Route key={path} path={path} exact={exact} render={(props) => (\n              <Component {...props} {...rest} />\n            )} />\n          ))}\n          <Route render={(props) => <NoMatch {...props} /> } />\n        </Switch>\n      </ThemeProvider>\n    )\n  }\n}\n\nexport default App\n\ninjectGlobal`\n  html, body, #app {\n    font-family: -apple-system,\n      \"Helvetica Neue\",\n      \"Segoe UI\",\n      \"Roboto\",\n      \"Roboto Light\",\n      \"Ubuntu\",\n      \"Cantarell\",\n      \"Fira Sans\",\n      \"Droid Sans\",\n      sans-serif,\n      \"Apple Color Emoji\",\n      \"Segoe UI Emoji\",\n      \"Segoe UI Symbol\";\n    color: #14171a;\n    width: 100%;\n    height: 100%;\n    padding: 0;\n    margin: 0;\n    line-height: 1.5;\n  }\n  html {\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;\n    box-sizing: border-box;\n  }\n  *, *:before, *:after {\n    -webkit-box-sizing: inherit;\n    -moz-box-sizing: inherit;\n    box-sizing: inherit;\n  }\n  @font-face {\n    font-family: 'edgeicons';\n    font-style: normal;\n    font-weight: 400;\n    src: local('edge icons Regular'), local('edge-icons-Regular'), url(https://dl.dropboxusercontent.com/s/11rqzv3r6b5p9v5/edge-icons-Regular.woff?dl=0) format('woff');\n  };\n`;\n\n\n",
+			"file": "src/shared/components/App.js",
+			"file_size": 1981,
+			"file_write_time": 131655298610000000,
+			"settings":
+			{
+				"buffer_size": 3335,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 1412,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "import React, { Component } from 'react';\nimport { ThemeProvider } from 'emotion-theming';\nimport styled from 'react-emotion';\n\nimport { Header } from './header';\nimport { RenderPanel } from './render_panel';\nimport { FormatPanel } from './format_panel';\n\nconst StyledAppContainerDiv = styled('div')`\n  display: grid;\n  height: 100%;\n  width: 100%;\n  grid-template-areas: \"header header\"\n                       \"format render\";\n  grid-template-rows: 130px 1fr;\n  grid-template-columns: 250px minmax(calc(${p => p.theme.post.width + p.theme.post.paddingX * 2}px + 1.5rem), 7fr);\n  background-color: ${p => p.theme.white};\n`;\n\nclass DesignView extends Component {\n  getTweet = () => {\n    let tweet\n    if (__isBrowser__) {\n      tweet = window.__INITIAL_DATA__\n      delete window.__INITIAL_DATA__\n    } else {\n      tweet = this.props.staticContext.data\n    }\n    return tweet\n  }\n\n  applyPostTheme = () => ({\n    borderRadius: 8,\n    backgroundColor: { hex: '#ffffff' },\n    fullBleedMedia: 0,\n    paddingX: 40,\n    paddingY: 30,\n    userNameFontSize: 18,\n    screenNameFontSize: 14,\n    width: 660,\n  })\n\n  state = {\n    postTheme: {\n      post: this.applyPostTheme(),\n    },\n    tweet: __isBrowser__ ? window.__INITIAL_DATA__ : this.props.staticContext.data,\n    loading: this.getTweet() ? false : true,\n  }\n  // tweetURL = URL => {\n  //   console.log('OK', process.env)\n  //   let tweet\n  //   process.env.ONSERVER ? tweet = tweetSearch(URL) : tweet = null\n\n  //   this.setState({\n  //     tweet: tweet,\n  //   });\n  //   //   }\n  //   // });\n  // }\n\n  handleValueChange = (param, value) => {\n    this.setState({\n      postTheme: {\n        post: {\n          ...this.state.postTheme.post,\n          [param]: value,\n        },\n      },\n    });\n    console.log(`${param}:`, value);\n  }\n\n  render() {\n    return (\n      <ThemeProvider theme={this.state.postTheme}>\n        <StyledAppContainerDiv>\n          {/*<Header tweetURL={this.getTweet} tweet={this.state.tweet} postTheme={this.state.postTheme} />*/}\n          <FormatPanel theme={this.state.postTheme.post} onInputChange={this.handleValueChange} />\n          <RenderPanel tweet={this.state.tweet} />\n        </StyledAppContainerDiv>\n      </ThemeProvider>\n    );\n  }\n}\n\nexport default DesignView;",
+			"file": "src/shared/components/design_view.js",
+			"file_size": 2257,
+			"file_write_time": 131655296120000000,
+			"settings":
+			{
+				"buffer_size": 2253,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/shared/components/header.js",
+			"settings":
+			{
+				"buffer_size": 1174,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/shared/services/api.js",
+			"settings":
+			{
+				"buffer_size": 1280,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/shared/services/request_bearer_token.js",
+			"settings":
+			{
+				"buffer_size": 1225,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "notes.md",
+			"settings":
+			{
+				"buffer_size": 260,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/shared/components/post_grid.js",
+			"settings":
+			{
+				"buffer_size": 2187,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"git log",
+				"Git: Log All"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"settings",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"markd",
+				"MarkdownEditing: Change color scheme..."
+			],
+			[
+				"markdownediting",
+				"Preferences: MarkdownEditing Settings – Default"
+			],
+			[
+				"markdown",
+				"MarkdownEditing: Change color scheme..."
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 528.0
+	},
+	"console":
+	{
+		"height": 182.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/madisonbullard/Documents/Projects/social-formatter4",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/browser",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/server",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/components",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/services"
+	],
+	"file_history":
+	[
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/package.json",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/services/post_as_components.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/.gitignore",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/components/Grid.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/server/index.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/services/request_bearer_token.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/webpack.config.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/services/common.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/services/api.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/components/App.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/API_KEYS",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/notes.md",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/design_view.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/App.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/browser/index.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/Components",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/Grid.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/Navbar.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/NoMatch.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/routes.js",
+		"/Users/madisonbullard/Documents/Projects/rrssr/src/browser/index.js",
+		"/Users/madisonbullard/Documents/Projects/rrssr/src/server/index.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/Home.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/src/shared/api.js",
+		"/Users/madisonbullard/Documents/Projects/rrssr/webpack.config.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/server.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/shared/App.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter4/.babelrc",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/search_bar.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/design_view.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/services/get_bearer_token.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/webpack.config.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/settings.json",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/package.json",
+		"/Users/madisonbullard/Documents/Other/fullscreen-capture/YourHue.properties",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/index.html",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/App.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/index.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/API_KEYS",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/.gitignore",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/.babelrc",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/tests/setup.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/jest.config.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/tests/components/App.test.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/tests/components/design-view.test.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/twitter_verified_icon.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/post_user_name.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/__mocks__/react-router-dom.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/tests/components",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/server/renderFullPage.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/header.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/format_panel.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/render_panel.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/build/components/format_panel.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/format_color_input.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/format_numeric_input.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/server/router.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/services/render_png.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/services/post_as_components.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/services/post_media_as_components.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/OLD_post_grid_layout.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/post.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/post_grid.js",
+		"/Users/madisonbullard/Documents/Projects/sure/webpack.config.js",
+		"/Users/madisonbullard/Documents/Projects/sure/package.json",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/yarn.lock",
+		"/Users/madisonbullard/Documents/Projects/social-formatter/imports/ui/layouts/design_view.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/App.old.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter/package.json",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/.babelrc ",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/.yarnclean",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/server/app.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/server/routes.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/server/index.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components/DesignView.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/hn_nav_mobile.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/hn_bookmarks.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/hn_story.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/hn_stories.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/App.js",
+		"/Users/madisonbullard/Documents/Projects/sure/README.md",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing_nav_mobile.js",
+		"/Users/madisonbullard/Documents/Projects/sure/server.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/loading.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/hn.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/btn_primary.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing_header.js",
+		"/Users/madisonbullard/Documents/Projects/sure/.babelrc",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/hn_nav_desktop.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing_nav_desktop.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/sure_logo.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing_partners.js",
+		"/Users/madisonbullard/Documents/Projects/personal-site/madisonbullard.org/webpack.config.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing_footer.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing_body.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing_badges.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing_badge.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/index.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/index.html",
+		"/Users/madisonbullard/Documents/Projects/sure/client/img/sure-logo-white.svg",
+		"/Users/madisonbullard/Documents/Projects/sure/.gitignore",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing_nav.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter/imports/ui/layouts/post_icons.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/img/sure-logo.js",
+		"/Users/madisonbullard/Documents/Projects/personal-site/madisonbullard.org/client/components/background_spin.js",
+		"/Users/madisonbullard/Documents/Projects/personal-site/madisonbullard.org/client/components/App.js",
+		"/Users/madisonbullard/Documents/Projects/sure/client/components/landing_nav",
+		"/Users/madisonbullard/Documents/Projects/social-formatter2/social-formatter/webpack.config.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter2/social-formatter/webpack.config.dev.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter2/social-formatter/client/home.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter2/social-formatter/client/App.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter2/social-formatter/routes/index.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter2/social-formatter/package.json",
+		"/Users/madisonbullard/Documents/Projects/social-formatter2/social-formatter/client/reducers.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter/webpack.config.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter2/social-formatter/app.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/client/routes.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/client/modules/reducers.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/webpack.config.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/client/App.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/package.json",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/views/index.pug",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/routes/index.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/.babelrc",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/client/list_to_users.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/client/not_found.js",
+		"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter/client/modules/users.js"
+	],
+	"find":
+	{
+		"height": 70.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+			"/Users/madisonbullard/Documents/Projects/social-formatter4/src",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3/app",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3/app/server",
+			"/Users/madisonbullard/Documents/Projects/social-formatter4/src",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3/webpack.config.js",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3/build",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3/app",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3/app/services",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3/app/components",
+			"/Users/madisonbullard/Documents/Projects/sure/client/components",
+			"/Users/madisonbullard/Documents/Projects/social-formatter3/social-formatter",
+			"/Users/madisonbullard/Documents/Projects/social-formatter/imports",
+			"/Users/madisonbullard/Documents/Projects/social-formatter",
+			"/Users/madisonbullard/Documents/Projects/social-formatter/imports",
+			"/Users/madisonbullard/Documents/Projects/shore-group/shoreGroup/client",
+			"/Users/madisonbullard/Documents/Projects/shore-group/shoreGroup/server",
+			"/Users/madisonbullard/Documents/Projects/shore-group/shoreGroup/client",
+			"/Users/madisonbullard/Documents/Projects/shore-group/shoreGroup/server",
+			"/Users/madisonbullard/Documents/Projects/shore-group/shoreGroup",
+			"/Users/madisonbullard/Documents/Projects/shore-group/shoreGroup/server",
+			"/Users/madisonbullard/Documents/Projects/shore-group/shoreGroup/client",
+			"/Users/madisonbullard/Documents/Projects/shore-group/shoreGroup"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"AtStartup",
+			"profile_image_url_https",
+			"full_text",
+			"twttr",
+			"repos",
+			"node",
+			"serial",
+			"serialize",
+			"URL",
+			"statusID",
+			"requestBearerToken",
+			"bearerToken",
+			"console",
+			"regenerator",
+			"statusID",
+			"statusIDArray",
+			"URL",
+			"isBrow",
+			"is",
+			"isBrowser",
+			"shared",
+			"/routes",
+			"fetch",
+			"/api",
+			"getRepos",
+			"context",
+			"paths",
+			"template",
+			"html",
+			"babel ./app -d build",
+			"secret",
+			"consumerKey",
+			"babel",
+			"polyfill",
+			"getP",
+			"favicon",
+			"styled",
+			"css",
+			"StyledAppContainer",
+			"css",
+			"StyledNoInputDiv",
+			"development",
+			"Theme",
+			"/layouts/",
+			"/components/",
+			"props.tweet",
+			"DesignView",
+			"App",
+			"URL",
+			"App",
+			"var",
+			"render",
+			"run",
+			"npm",
+			"initialState",
+			"yarn",
+			"console.log",
+			"this.props.",
+			"HnStories",
+			"30px",
+			"HnStories",
+			"newStories",
+			"stories",
+			"console",
+			"slice",
+			"storyId",
+			"slice",
+			"hasMore",
+			"story",
+			"stories",
+			"InfiniteScroller",
+			"div",
+			"p",
+			"moment",
+			"div",
+			"console.log",
+			"a",
+			"LandingNavMobile",
+			"Landing",
+			"LandingNavDesktop",
+			"this.state.",
+			"App",
+			"breakpoints.",
+			"getColor",
+			"div",
+			"StyledBadgeDiv",
+			"<StyledBadgeDiv img={petIcon} title={'Pet Coverage'} />",
+			"StyledBadgeDiv",
+			"200px",
+			"250px",
+			"minmax(160px, 1fr)",
+			"200px",
+			"a",
+			"StyledButton",
+			"button",
+			"updateWindowDimensions",
+			"\t  this.updateWindowDimensions();\n",
+			"resize",
+			"updateWindowDimensions",
+			"badgeDivStyles",
+			"Div",
+			"StyledDiv",
+			"div",
+			"Privacy Policy",
+			"padding",
+			" className={badgeStyles}",
+			"div",
+			"StyledH3",
+			"h3",
+			"300",
+			"h2",
+			"StyledButton",
+			"button",
+			"ButtonPrimary",
+			"process",
+			"minify",
+			"debug",
+			"div",
+			"notfound",
+			"async",
+			"comp",
+			"component",
+			"Post",
+			"component",
+			"Component",
+			"div",
+			"Icons",
+			"p"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"/components/",
+			"/services/",
+			"preloadedState",
+			"breakpoints.landing.",
+			"not_found",
+			"component",
+			"props",
+			"StyledPostButtons",
+			"`",
+			"",
+			"import { ThemeProvider } from 'emotion-theming'",
+			"react-emotion",
+			"ScatterSeries",
+			"import React, { Component } from 'react';\nimport PropTypes from 'prop-types';",
+			"import React, { Component } from 'react';\nimport PropTypes from 'prop-types'",
+			"import React from 'react';\nimport PropTypes from 'prop-types'"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/shared/services/routes.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 714,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								311,
+								311
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"git_gutter_is_enabled": false,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_separators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`~?"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/shared/components/App.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3335,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2038,
+								2038
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"git_gutter_is_enabled": false,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_separators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`~?"
+						},
+						"translation.x": 0.0,
+						"translation.y": 952.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "package.json",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1412,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								211,
+								211
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": false,
+							"syntax": "Packages/Materialize/Langs/npm JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/shared/components/design_view.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2253,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1896,
+								1896
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"git_gutter_is_enabled": false,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_separators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`~?"
+						},
+						"translation.x": 0.0,
+						"translation.y": 756.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/shared/components/header.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": false,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 129.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/shared/services/api.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1280,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1123,
+								1123
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"git_gutter_is_enabled": false,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_separators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`~?"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/shared/services/request_bearer_token.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1225,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1079,
+								1079
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"git_gutter_is_enabled": false,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_separators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`~?"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "notes.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 260,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								260,
+								260
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"git_gutter_is_enabled": false,
+							"syntax": "Packages/MarkdownEditing/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/shared/components/post_grid.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2187,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1653,
+								1653
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"git_gutter_is_enabled": false,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_separators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`~?"
+						},
+						"translation.x": 0.0,
+						"translation.y": 756.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 66.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "social-formatter.sublime-project",
+	"replace":
+	{
+		"height": 114.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"package.js",
+				"social-formatter4/package.json"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 291.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

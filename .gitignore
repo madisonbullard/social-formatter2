@@ -1,0 +1,8 @@
+node_modules
+**settings.json*
+API_KEYS
+.DS_Store
+build
+coverage
+coverage reports
+server.js
